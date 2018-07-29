@@ -51,12 +51,12 @@ export class FormPage {
     this.cancelButton.click();
   }
 
-  fillForm(team, activity, startDate, endDate, status) {
-    this.selectTeam(team);
-    this.setActivity(activity);
-    this.setStartDate(startDate);
-    this.setEndDate(endDate);
-    this.selectStatus(status);
+  fillForm(project) {
+    this.selectTeam(project.team);
+    this.setActivity(project.activity);
+    this.setStartDate(project.startDate);
+    this.setEndDate(project.endDate);
+    this.selectStatus(project.status);
   }
 
   nextPage() {
