@@ -12,14 +12,25 @@ describe('Form page', () => {
     expect(page.getHeaderText()).toBe('Form');
   });
 
-  it('should be possible save a form with valid data on input fields', () => {
+  it('should be possible to save the form with valid data on input fields', () => {
     page.navigateTo();
-    page.chooseTeam('Team 1');
-    page.fillActivity();
-    page.fillStartDate();
-    page.fillEndDate();
-    page.chooseStatus('Green');
-    page.clickSave();
-    expect(page.resultPage()).toBe('http://localhost:4200/result');
+    page.selectTeam(0);
+    page.setActivity('My activity');
+    page.setStartDate(new Date().toString());
+    page.setEndDate(new Date().toString());
+    page.selectStatus(2);
+    page.clickOnSave();
+    expect(page.nextPage()).toBe('http://localhost:4200/result');
+  });
+
+  it('should be possible to reset the form when I click on reset button', () => {
+    page.navigateTo();
+    page.selectTeam(0);
+    page.setActivity('My activity');
+    page.setStartDate(new Date().toString());
+    page.setEndDate(new Date().toString());
+    page.selectStatus(2);
+    page.clickOnCancel();
+    expect(page.nextPage()).toBe('http://localhost:4200/form');
   });
 });

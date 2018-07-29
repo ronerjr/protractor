@@ -2,41 +2,56 @@ import { browser, by, element } from 'protractor';
 import { build$ } from '../../node_modules/protractor/built/element';
 
 export class FormPage {
+  private formUrl = '/form';
+  private headerText = element(by.css('h1'));
+  private saveButton = element(by.buttonText('Save'));
+  private cancelButton = element(by.buttonText('Cancel'));
+  private teamSelect = element(by.name('team'));
+  private activity = element(by.name('activity'));
+  private startDate = element(by.name('startDate'));
+  private endDate = element(by.name('endDate'));
+  private statusSelect = element(by.name('status'));
+  private options = element.all(by.css('mat-option'));
+
   navigateTo() {
-    return browser.get('/form');
+    return browser.get(this.formUrl);
   }
 
   getHeaderText() {
-    return element(by.css('h1')).getText();
+    return this.headerText.getText();
   }
 
-  chooseTeam(team) {
-    element(by.name('team')).click();
-    element(by.cssContainingText('mat-option', team)).click();
+  selectTeam(index) {
+    this.teamSelect.click();
+    this.options.get(index).click();
   }
 
-  fillActivity() {
-    element(by.name('activity')).sendKeys('My activity');
+  setActivity(content) {
+    this.activity.sendKeys(content);
   }
 
-  fillStartDate() {
-    element(by.name('startDate')).sendKeys(new Date().toString());
+  setStartDate(content) {
+    this.startDate.sendKeys(content);
   }
 
-  fillEndDate() {
-    element(by.name('endDate')).sendKeys(new Date().toString());
+  setEndDate(content) {
+    this.endDate.sendKeys(content);
   }
 
-  chooseStatus(status) {
-    element(by.name('status')).click();
-    element(by.cssContainingText('mat-option', status)).click();
+  selectStatus(index) {
+    this.statusSelect.click();
+    this.options.get(index).click();
   }
 
-  clickSave() {
-    element(by.buttonText('Save')).click();
+  clickOnSave() {
+    this.saveButton.click();
   }
 
-  resultPage() {
+  clickOnCancel() {
+    this.cancelButton.click();
+  }
+
+  nextPage() {
     return browser.getCurrentUrl();
   }
 }
