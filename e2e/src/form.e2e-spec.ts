@@ -5,32 +5,35 @@ describe('Form page', () => {
 
   beforeEach(() => {
     page = new FormPage();
+    page.navigateTo();
   });
 
   it('should have a header "Form"', () => {
-    page.navigateTo();
     expect(page.getHeaderText()).toBe('Form');
   });
 
-  it('should be possible to save the form with valid data on input fields', () => {
-    page.navigateTo();
-    page.selectTeam(0);
-    page.setActivity('My activity');
-    page.setStartDate(new Date().toString());
-    page.setEndDate(new Date().toString());
-    page.selectStatus(2);
+  it('should be possible to save the form filled with valid data', () => {
+    const date = new Date();
+    page.fillForm(0, 'My activity', date.toString(), date.toString(), 2);
     page.clickOnSave();
-    expect(page.nextPage()).toBe('http://localhost:4200/result');
+    expect(page.nextPage()).toBe(page.baseUrl + '/result');
   });
 
-  it('should be possible to reset the form when I click on reset button', () => {
-    page.navigateTo();
-    page.selectTeam(0);
-    page.setActivity('My activity');
-    page.setStartDate(new Date().toString());
-    page.setEndDate(new Date().toString());
-    page.selectStatus(2);
+  it('should be possible to reset the form when reset button is clicked', () => {
+    const date = new Date();
+    page.fillForm(0, 'My activity', date.toString(), date.toString(), 2);
     page.clickOnCancel();
-    expect(page.nextPage()).toBe('http://localhost:4200/form');
+    expect(page.nextPage()).toBe(page.baseUrl + '/form');
+  });
+
+  it('should not be possible to save the form without valid data', () => {
+    page.clickOnSave();
+    expect(page.nextPage()).toBe(page.baseUrl + '/form');
+  });
+
+  it('should validate date fields', () => {
+    page.setStartDate('blabla');
+    page.clickOnSave();
+    expect(page.startDate.getAttribute('class')).toContain('ng-invalid');
   });
 });

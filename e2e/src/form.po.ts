@@ -2,19 +2,19 @@ import { browser, by, element } from 'protractor';
 import { build$ } from '../../node_modules/protractor/built/element';
 
 export class FormPage {
-  private formUrl = '/form';
-  private headerText = element(by.css('h1'));
-  private saveButton = element(by.buttonText('Save'));
-  private cancelButton = element(by.buttonText('Cancel'));
-  private teamSelect = element(by.name('team'));
-  private activity = element(by.name('activity'));
-  private startDate = element(by.name('startDate'));
-  private endDate = element(by.name('endDate'));
-  private statusSelect = element(by.name('status'));
-  private options = element.all(by.css('mat-option'));
+  baseUrl = browser.baseUrl;
+  headerText = element(by.css('h1'));
+  saveButton = element(by.buttonText('Save'));
+  cancelButton = element(by.buttonText('Cancel'));
+  teamSelect = element(by.name('team'));
+  activity = element(by.name('activity'));
+  startDate = element(by.name('startDate'));
+  endDate = element(by.name('endDate'));
+  statusSelect = element(by.name('status'));
+  options = element.all(by.css('mat-option'));
 
   navigateTo() {
-    return browser.get(this.formUrl);
+    return browser.get('/form');
   }
 
   getHeaderText() {
@@ -49,6 +49,14 @@ export class FormPage {
 
   clickOnCancel() {
     this.cancelButton.click();
+  }
+
+  fillForm(team, activity, startDate, endDate, status) {
+    this.selectTeam(team);
+    this.setActivity(activity);
+    this.setStartDate(startDate);
+    this.setEndDate(endDate);
+    this.selectStatus(status);
   }
 
   nextPage() {
