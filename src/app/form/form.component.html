@@ -2,7 +2,7 @@
   <form [formGroup]="adminForm" class="admin-form">
     <h1>Form</h1>
     <mat-form-field>
-      <mat-select [(ngModel)]="project['team']" placeholder="Select your team" formControlName="team" required>
+      <mat-select [(ngModel)]="project['team']" placeholder="Select your team" formControlName="team" name="team" required>
         <mat-option *ngFor="let team of teams" [value]="team">
           Team {{ team }}
         </mat-option>
@@ -10,25 +10,25 @@
       <mat-error *ngIf="adminForm.get('team').hasError('required')">You must enter a value</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput [(ngModel)]="project['activity']" placeholder="Activity" formControlName="activity" required>
+      <input matInput [(ngModel)]="project['activity']" placeholder="Activity" formControlName="activity" name="activity" required>
       <mat-error *ngIf="adminForm.get('activity').hasError('required')">You must enter a value</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input matInput [(ngModel)]="project['startDate']" [matDatepicker]="startDatePicker" placeholder="Select a initial date" formControlName="startDate"
-        required>
+        name="startDate" required>
       <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #startDatePicker></mat-datepicker>
       <mat-error *ngIf="adminForm.get('startDate').hasError('required')">You must enter a value</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input matInput [(ngModel)]="project['endDate']" [matDatepicker]="endDatePicker" placeholder="Select a final date" formControlName="endDate"
-        required>
+        name="endDate" required>
       <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #endDatePicker></mat-datepicker>
       <mat-error *ngIf="adminForm.get('endDate').hasError('required')">You must enter a value</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <mat-select [(ngModel)]="project['status']" placeholder="Status of project" formControlName="status" required>
+      <mat-select [(ngModel)]="project['status']" placeholder="Status of project" formControlName="status" name="status" required>
         <mat-option *ngFor="let status of availableStatus" [value]="status.value">
           {{ status.viewValue }}
         </mat-option>
